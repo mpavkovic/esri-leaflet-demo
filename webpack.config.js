@@ -1,4 +1,6 @@
+require('dotenv').config();
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const webpack = require('webpack');
 
 module.exports = {
   mode: process.env.WEBPACK_SERVE ? 'development' : 'production',
@@ -38,6 +40,12 @@ module.exports = {
   },
 
   plugins: [
+    new webpack.DefinePlugin({
+      ARCGIS_USER: JSON.stringify(process.env.ARCGIS_USER),
+      ARCGIS_PASSWORD: JSON.stringify(process.env.ARCGIS_PASSWORD),
+      ARCGIS_MAP_ID: JSON.stringify(process.env.ARCGIS_MAP_ID),
+    }),
+
     new HtmlWebpackPlugin({
       template: './index.html',
       filename: './index.html',
